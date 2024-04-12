@@ -1,0 +1,45 @@
+[project]
+name = "surya-AAA"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "josemarcosrf", email = "jose@melior.ai"},
+]
+dependencies = [
+    "surya-ocr>=0.3.0",
+    "streamlit>=1.33.0",
+    "torch>=2.2.2",
+    "invoke>=2.2.0",
+    "tqdm>=4.66.2",
+    "funcy>=2.0",
+]
+requires-python = "==3.10.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
+
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "ruff>=0.3.5",
+    "isort>=5.13.2",
+]
+
+
+[tool.pdm.scripts.check-lint]
+shell = """
+    ruff format --check .
+    isort --check .
+    ruff check .
+"""
+help = "Run linting and formating checks."
+
+[tool.pdm.scripts.reformat]
+shell = """
+    isort .
+    ruff format .
+"""
+help = "Reformat the code using isort and ruff."

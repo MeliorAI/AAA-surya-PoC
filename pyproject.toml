@@ -1,5 +1,5 @@
 [project]
-name = "surya-AAA"
+name = "surya-PoC"
 version = "0.1.0"
 description = "Default template for PDM package"
 authors = [

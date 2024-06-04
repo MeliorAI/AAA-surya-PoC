@@ -66,13 +66,12 @@ class OCR:
             if os.path.exists(results_file):
                 continue
 
-            if time_profile:
-                with catchtime() as t:
-                    out_preds = self.ocr_pdf(pdf, langs, batch_size, pbar)
+            # Run OCR and optionally do time profiling
+            with catchtime() as t:
+                out_preds = self.ocr_pdf(pdf, langs, batch_size, pbar)
 
-                print(
-                    f"{fname}: {t.readout} [~{t.time/len(out_preds):.3f}s per page]"
-                )
+            if time_profile:
+                print(f"{fname}: {t.readout} [~{t.time/len(out_preds):.3f}s per page]")
 
             # Make the results dir if not present
             os.makedirs(results_dir, exist_ok=True)
@@ -121,7 +120,7 @@ class OCR:
         for pn, (pred, _) in enumerate(zip(predictions_by_image, images)):
             out_preds.append(
                 {
-                    "ocr": pred.model_dump(),
+                    **pred.model_dump(),
                     "page": pn + 1,
                 }
             )
